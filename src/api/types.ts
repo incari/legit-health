@@ -20,4 +20,7 @@ type ApiResponse = {
   support: SupportInfo;
 };
 
-export type { ApiResponse, UserData };
+type NewUser = Pick<UserData, "email" | "first_name" | "last_name" | "avatar"> &
+  Partial<Pick<UserData, "avatar">>;
+
+export type { ApiResponse, UserData, NewUser };

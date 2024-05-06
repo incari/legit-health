@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { ApiResponse, UserData } from "./types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { ApiResponse, NewUser, UserData } from "./types";
 
 const BASE_URL = "https://reqres.in/api/users";
 
@@ -30,4 +30,26 @@ const useGetUser = (id: string | undefined) => {
   });
   return query;
 };
-export { useGetUsers, useGetUser };
+
+const create = async (newUser: NewUser) => {
+  const response = await fetch(BASE_URL, {
+    method: "POST",
+    body: JSON.stringify(newUser),
+  });
+  return response;
+};
+
+const useCreateUser = (onSuccess: () => void) => {
+  const query = useMutation({
+    mutationFn: create,
+    onSuccess: () => {
+      if (onSuccess) {
+        onSuccess();
+      }
+    },
+  });
+
+  return query;
+};
+
+export { useGetUsers, useGetUser, useCreateUser };

@@ -7,25 +7,29 @@ import { NavBar } from "./components/NavBar";
 
 function App() {
   return (
-    <>
-      <Container>
-        <NavBar />
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="user/:id"
-            element={<Detail />}
-          />
-          <Route
-            path="/new"
-            element={<FormPage />}
-          />
-        </Routes>
-      </Container>
-    </>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+        <Route
+          path="user/:id"
+          element={<Detail />}
+        />
+        <Route
+          path="/new"
+          element={<FormPage />}
+        />
+      </Routes>
+    </Container>
   );
 }
 
