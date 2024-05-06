@@ -1,4 +1,4 @@
-import { ThemeProvider, Typography, createTheme } from "@mui/material";
+import { Container, ThemeProvider, createTheme } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./pages/Home";
 
@@ -9,8 +9,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <Typography>hello world</Typography>
-        <Home />
+        <Container>
+          <Home />
+        </Container>
       </ThemeProvider>
     </QueryClientProvider>
   );

@@ -1,5 +1,6 @@
 import { useGetUsers } from "../api";
 import { Typography } from "@mui/material";
+import { Cards } from "../components/Cards";
 
 const Home = () => {
   const { data, isLoading, isError } = useGetUsers();
@@ -14,15 +15,7 @@ const Home = () => {
     return <Typography>Loading... </Typography>;
   }
 
-  console.log(data);
-  return (
-    <Typography>
-      users:
-      {users?.map(({ email }) => (
-        <Typography>{email}</Typography>
-      ))}
-    </Typography>
-  );
+  return <Cards users={users} />;
 };
 
 export default Home;

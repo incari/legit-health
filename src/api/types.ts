@@ -20,4 +20,4 @@ type ApiResponse = {
   support: SupportInfo;
 };
 
-export type { ApiResponse };
+export type { ApiResponse, UserData };
