@@ -1,32 +1,31 @@
-import { Container, ThemeProvider, createTheme } from "@mui/material";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Container } from "@mui/material";
 import { Home } from "./pages/Home";
 import { Detail } from "./pages/Detail";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "user/:id",
-    element: <Detail />,
-  },
-]);
-
-const queryClient = new QueryClient();
-const theme = createTheme();
+import { Route, Routes } from "react-router-dom";
+import { FormPage } from "./pages/FormPage";
+import { NavBar } from "./components/NavBar";
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <Container>
-          <RouterProvider router={router} />
-        </Container>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <>
+      <Container>
+        <NavBar />
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          <Route
+            path="user/:id"
+            element={<Detail />}
+          />
+          <Route
+            path="/new"
+            element={<FormPage />}
+          />
+        </Routes>
+      </Container>
+    </>
   );
 }
 
