@@ -8,7 +8,10 @@ export const Cards = ({ users }: { users: Array<UserData> }) => {
   return (
     <ImageList cols={3}>
       {users.map((user) => (
-        <Link to={"user/" + user.id}>
+        <Link
+          key={user.id}
+          to={"user/" + user.id}
+        >
           <Card
             key={user.id}
             user={user}

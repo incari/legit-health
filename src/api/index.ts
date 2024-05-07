@@ -3,16 +3,18 @@ import { ApiResponse, NewUser, UserData } from "./types";
 
 const BASE_URL = "https://reqres.in/api/users";
 
-const getUsers = async () => {
-  const response = await fetch(BASE_URL).then((res) => res.json());
+const getUsers = async (page: number) => {
+  const response = await fetch(BASE_URL + "?page=" + page).then((res) =>
+    res.json()
+  );
 
   return response;
 };
 
-const useGetUsers = () => {
+const useGetUsers = (page: number) => {
   const query = useQuery<ApiResponse>({
-    queryKey: ["users"],
-    queryFn: getUsers,
+    queryKey: ["users", page],
+    queryFn: () => getUsers(page),
   });
   return query;
 };

@@ -4,6 +4,7 @@ import { Detail } from "./pages/Detail";
 import { Route, Routes } from "react-router-dom";
 import { FormPage } from "./pages/FormPage";
 import { NavBar } from "./components/NavBar";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
         <Route
           path="/new"
           element={<FormPage />}
+        />
+        <Route
+          path="*"
+          element={<NotFound />}
         />
       </Routes>
     </Container>

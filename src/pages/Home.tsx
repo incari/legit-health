@@ -1,19 +1,49 @@
 import { useGetUsers } from "../api";
-import { Typography } from "@mui/material";
-import { Cards } from "../components/Cards";
+import { ImageList, Pagination, Skeleton, Typography } from "@mui/material";
+
+import { useState } from "react";
+import { Cards } from "../components/cards";
 
 export const Home = () => {
-  const { data, isLoading, isError } = useGetUsers();
-
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError } = useGetUsers(page);
   const { data: users = [] } = data || {};
+  const skeletonGroup = Array(6).fill("");
+
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   if (isError) {
     return <Typography>Error</Typography>;
   }
 
-  if (isLoading) {
-    return <Typography>Loading... </Typography>;
-  }
-
-  return <Cards users={users} />;
+  return (
+    <>
+      {isLoading ? (
+        <>
+          <ImageList cols={3}>
+            {skeletonGroup.map(() => (
+              <Skeleton
+                animation="wave"
+                height={300}
+                width={300}
+                sx={{ aspectRatio: "1" }}
+              />
+            ))}
+          </ImageList>
+        </>
+      ) : (
+        <Cards users={users} />
+      )}
+      {data && (
+        <Pagination
+          page={page}
+          onChange={handleChange}
+          count={data.total_pages || 4}
+          sx={{ margin: "0 auto" }}
+        />
+      )}
+    </>
+  );
 };
