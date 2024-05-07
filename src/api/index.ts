@@ -1,20 +1,30 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { ApiResponse, NewUser, UserData } from "./types";
 
 const BASE_URL = "https://reqres.in/api/users";
 
-const getUsers = async (page: number) => {
+const getUsers = async (page: number, queryClient: QueryClient) => {
   const response = await fetch(BASE_URL + "?page=" + page).then((res) =>
     res.json()
   );
-
+  // Cache each user individually
+  response.data.forEach((user: UserData) => {
+    queryClient.setQueryData(["user", user.id.toString()], user);
+  });
   return response;
 };
 
 const useGetUsers = (page: number) => {
+  const queryClient = useQueryClient();
+
   const query = useQuery<ApiResponse>({
     queryKey: ["users", page],
-    queryFn: () => getUsers(page),
+    queryFn: () => getUsers(page, queryClient),
   });
   return query;
 };

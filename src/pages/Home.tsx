@@ -34,8 +34,9 @@ export const Home = () => {
       {isLoading ? (
         <>
           <ImageList cols={3}>
-            {skeletonGroup.map(() => (
+            {skeletonGroup.map((_, index) => (
               <Skeleton
+                key={index}
                 animation="wave"
                 height={300}
                 width={300}
