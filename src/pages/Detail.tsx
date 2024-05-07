@@ -1,20 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useGetUser } from "../api";
-import { Container, Skeleton } from "@mui/material";
+import { Alert, Container, Skeleton } from "@mui/material";
 import { Card } from "../components/Card";
 
 export const Detail = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetUser(id);
 
-  if (isError) {
-    return <h1>Error</h1>;
-  }
-
   const { data: user } = data || {};
 
   return (
     <Container maxWidth="sm">
+      {isError && (
+        <Alert
+          severity="error"
+          sx={{ my: 3 }}
+        >
+          Failing requesting the user data, please try again
+        </Alert>
+      )}
       {!user || isLoading ? (
         <Skeleton
           animation="wave"

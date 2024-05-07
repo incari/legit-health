@@ -17,7 +17,7 @@ export const FormPage = () => {
     formState: { errors },
   } = useForm<NewUser>();
 
-  const { mutate, isPending, isSuccess } = useCreateUser(reset);
+  const { mutate, isPending, isSuccess, isError } = useCreateUser(reset);
 
   const onSubmit: SubmitHandler<NewUser> = (data) => {
     mutate(data);
@@ -80,6 +80,11 @@ export const FormPage = () => {
           Create user
         </Button>
         {isSuccess && <Alert severity="success">New user created</Alert>}
+        {isError && (
+          <Alert severity="error">
+            Failing creating the user, please try again
+          </Alert>
+        )}
       </FormControl>
     </>
   );

@@ -1,8 +1,14 @@
 import { useGetUsers } from "../api";
-import { ImageList, Pagination, Skeleton, Typography } from "@mui/material";
+import {
+  Alert,
+  ImageList,
+  Pagination,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 
 import { useState } from "react";
-import { Cards } from "../components/cards";
+import { Cards } from "../components/Cards";
 
 export const Home = () => {
   const [page, setPage] = useState(1);
@@ -20,6 +26,11 @@ export const Home = () => {
 
   return (
     <>
+      {isError && (
+        <Alert severity="error">
+          We had a problem requesting the user list, please try again.
+        </Alert>
+      )}
       {isLoading ? (
         <>
           <ImageList cols={3}>
